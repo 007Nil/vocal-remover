@@ -20,7 +20,6 @@ export const CompaniesSearch = () => {
     return (
       <Card sx={{ p: 2 }}>
         <OutlinedInput
-          defaultValue=""
           value={inputValue}
           onChange={handleInputChange}
           onKeyPress={handleKeyPress}
