@@ -4,14 +4,15 @@ import ClockIcon from '@heroicons/react/24/solid/ClockIcon';
 import { Avatar, Box, Card, CardContent, Divider, Stack, SvgIcon, Typography } from '@mui/material';
 
 export const VideoCard = (props) => {
-  const { eachSearchResult } = props;
+  const { searchResult } = props;
 
   return (
     <Card
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        height: '100%'
+        height: '100%',
+        
       }}
     >
       <CardContent>
@@ -23,7 +24,7 @@ export const VideoCard = (props) => {
           }}
         >
           {/* <Avatar
-            src={eachSearchResult.logo}
+            src={searchResult.logo}
             variant="square"
           /> */}
         </Box>
@@ -32,14 +33,14 @@ export const VideoCard = (props) => {
           gutterBottom
           variant="h5"
         >
-          {eachSearchResult.videoTitle}
+          {searchResult.videoTitle}
         </Typography>
-        {/* <Typography
+        <Typography
           align="center"
           variant="body1"
         >
-          {eachSearchResult.description}
-        </Typography> */}
+          {searchResult.videoId}
+        </Typography>
       </CardContent>
       <Box sx={{ flexGrow: 1 }} />
       <Divider />
@@ -85,7 +86,7 @@ export const VideoCard = (props) => {
             display="inline"
             variant="body2"
           >
-            {/* {eachSearchResult.downloads} Downloads */}
+            {searchResult.videoId} Downloads
           </Typography>
         </Stack>
       </Stack>
@@ -94,5 +95,5 @@ export const VideoCard = (props) => {
 };
 
 VideoCard.propTypes = {
-  eachSearchResult: PropTypes.object.isRequired
+  searchResult: PropTypes.object.isRequired
 };

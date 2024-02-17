@@ -16,10 +16,8 @@ const Page = () => {
 
   const [youtubeSearchResults, setYoutubeSearchResults] = useState([]);
 
-  // const youtubeSearchResults = new Array();
-
   const getSearchResultData = (rowData) => {
-    const test = new Array();
+    const searchResults = new Array();
     rowData.forEach(element => {
       let youtubeSearchResultObj = new Object();
 
@@ -29,11 +27,9 @@ const Page = () => {
       youtubeSearchResultObj.thumbnailDetails = element.thumbnails[1];
       youtubeSearchResultObj.viewCount = element.viewCount;
 
-      test.push(youtubeSearchResultObj)
+      searchResults.push(youtubeSearchResultObj)
     });
-    setYoutubeSearchResults([...youtubeSearchResults, test]);
-    console.log(youtubeSearchResults)
-    
+    setYoutubeSearchResults(searchResults);    
   };
 
 
@@ -84,8 +80,8 @@ const Page = () => {
                   lg={4}
                   key={eachSearchResult.videoId}
                 >
-                  {/* <YoutubeVideCard eachSearchResult={eachSearchResult} /> */}
-                  <li key={eachSearchResult.videoId}>{eachSearchResult.videoTitle}</li>
+                  <YoutubeVideCard searchResult={eachSearchResult} />
+                  {/* <li key={eachSearchResult.videoId}>{eachSearchResult.videoTitle}</li> */}
                 </Grid>
 
               ))}
