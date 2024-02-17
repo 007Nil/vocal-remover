@@ -3,8 +3,8 @@ import ArrowDownOnSquareIcon from '@heroicons/react/24/solid/ArrowDownOnSquareIc
 import ClockIcon from '@heroicons/react/24/solid/ClockIcon';
 import { Avatar, Box, Card, CardContent, Divider, Stack, SvgIcon, Typography } from '@mui/material';
 
-export const CompanyCard = (props) => {
-  const { company } = props;
+export const VideoCard = (props) => {
+  const { eachSearchResult } = props;
 
   return (
     <Card
@@ -22,24 +22,24 @@ export const CompanyCard = (props) => {
             pb: 3
           }}
         >
-          <Avatar
-            src={company.logo}
+          {/* <Avatar
+            src={eachSearchResult.logo}
             variant="square"
-          />
+          /> */}
         </Box>
         <Typography
           align="center"
           gutterBottom
           variant="h5"
         >
-          {company.title}
+          {eachSearchResult.videoTitle}
         </Typography>
-        <Typography
+        {/* <Typography
           align="center"
           variant="body1"
         >
-          {company.description}
-        </Typography>
+          {eachSearchResult.description}
+        </Typography> */}
       </CardContent>
       <Box sx={{ flexGrow: 1 }} />
       <Divider />
@@ -85,7 +85,7 @@ export const CompanyCard = (props) => {
             display="inline"
             variant="body2"
           >
-            {company.downloads} Downloads
+            {/* {eachSearchResult.downloads} Downloads */}
           </Typography>
         </Stack>
       </Stack>
@@ -93,6 +93,6 @@ export const CompanyCard = (props) => {
   );
 };
 
-CompanyCard.propTypes = {
-  company: PropTypes.object.isRequired
+VideoCard.propTypes = {
+  eachSearchResult: PropTypes.object.isRequired
 };
