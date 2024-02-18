@@ -6,7 +6,7 @@ import {
   Stack,
   Unstable_Grid2 as Grid
 } from '@mui/material';
-import { YoutubeVideCard } from 'src/sections/index_page/youtubevideo-card';
+import { YoutubeVideoCard } from 'src/sections/index_page/youtubevideo-card';
 import { YoutubeSearch } from 'src/sections/index_page/youtube-search';
 import { useState, useEffect } from 'react';
 
@@ -23,8 +23,8 @@ const Page = () => {
 
       youtubeSearchResultObj.videoTitle = element.title;
       youtubeSearchResultObj.videoId = element.id;
-      youtubeSearchResultObj.video_link = element.link;
-      youtubeSearchResultObj.thumbnailDetails = element.thumbnails[1];
+      youtubeSearchResultObj.videoLink = element.link;
+      youtubeSearchResultObj.thumbnailDetails = element.thumbnails[element.thumbnails.length - 1];
       youtubeSearchResultObj.viewCount = element.viewCount;
 
       searchResults.push(youtubeSearchResultObj)
@@ -80,7 +80,8 @@ const Page = () => {
                   lg={4}
                   key={eachSearchResult.videoId}
                 >
-                  <YoutubeVideCard searchResult={eachSearchResult} />
+                  {/* <YoutubeVideCard searchResult={eachSearchResult} /> */}
+                  <YoutubeVideoCard searchData={eachSearchResult}/>
                   {/* <li key={eachSearchResult.videoId}>{eachSearchResult.videoTitle}</li> */}
                 </Grid>
 

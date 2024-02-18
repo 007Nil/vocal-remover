@@ -1,18 +1,30 @@
 import PropTypes from 'prop-types';
-import ArrowDownOnSquareIcon from '@heroicons/react/24/solid/ArrowDownOnSquareIcon';
+import ArrowDownTrayIcon from '@heroicons/react/24/solid/ArrowDownTrayIcon';
+import PlayCircleIcon from '@heroicons/react/24/solid/PlayCircleIcon';
 import ClockIcon from '@heroicons/react/24/solid/ClockIcon';
-import { Avatar, Box, Card, CardContent, Divider, Stack, SvgIcon, Typography } from '@mui/material';
 
-export const VideoCard = (props) => {
-  const { searchResult } = props;
+import { Avatar, Box, Card, CardContent, Divider, Stack, SvgIcon, Typography, Button } from '@mui/material';
+import YouTube from 'react-youtube';
+import axiosInstance from 'src/lib/axios';
 
+export const YoutubeVideoCard = (props) => {
+  const { searchData } = props;
+
+  const handleKaraokeBtn = videoLink => () => {
+    axiosInstance.get('http://localhost:8080/v1/api/create_karaoke_video?video_url=' + videoLink)
+    .then((response) => {
+      // props.getSearchResultData(response.data.result);
+    })
+    .catch((error) => {
+      console.error('Error fetching posts:', error);
+    });
+  };
   return (
     <Card
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        height: '100%',
-        
+        height: '100%'
       }}
     >
       <CardContent>
@@ -23,23 +35,20 @@ export const VideoCard = (props) => {
             pb: 3
           }}
         >
-          {/* <Avatar
-            src={searchResult.logo}
+
+          <Avatar
+            sx={{ height: '200px', width: '200px' }}
+            src={searchData.thumbnailDetails.url}
             variant="square"
-          /> */}
+          />
+          {/* <YouTube videoId={searchData.videoId}/> */}
         </Box>
         <Typography
           align="center"
           gutterBottom
-          variant="h5"
+          variant="p"
         >
-          {searchResult.videoTitle}
-        </Typography>
-        <Typography
-          align="center"
-          variant="body1"
-        >
-          {searchResult.videoId}
+          {searchData.videoTitle}
         </Typography>
       </CardContent>
       <Box sx={{ flexGrow: 1 }} />
@@ -67,7 +76,7 @@ export const VideoCard = (props) => {
             display="inline"
             variant="body2"
           >
-            Updated 2hr ago
+            {searchData.viewCount.short}
           </Typography>
         </Stack>
         <Stack
@@ -75,25 +84,30 @@ export const VideoCard = (props) => {
           direction="row"
           spacing={1}
         >
-          <SvgIcon
-            color="action"
-            fontSize="small"
-          >
-            <ArrowDownOnSquareIcon />
-          </SvgIcon>
-          <Typography
-            color="text.secondary"
-            display="inline"
-            variant="body2"
-          >
-            {searchResult.videoId} Downloads
-          </Typography>
+          <Button variant='outlined'>
+            <SvgIcon
+              color="action"
+              fontSize="small"
+            >
+              <PlayCircleIcon />
+            </SvgIcon>
+            Stream
+          </Button>
+          <Button variant='outlined' onClick={handleKaraokeBtn(searchData.videoLink)}>
+            <SvgIcon
+              color="action"
+              fontSize="small"
+            >
+              <ArrowDownTrayIcon />
+            </SvgIcon>
+            Karaoke
+          </Button>
         </Stack>
       </Stack>
     </Card>
   );
 };
 
-VideoCard.propTypes = {
-  searchResult: PropTypes.object.isRequired
+YoutubeVideoCard.propTypes = {
+  searchData: PropTypes.object.isRequired
 };
