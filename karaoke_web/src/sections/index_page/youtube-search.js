@@ -10,9 +10,9 @@ export const YoutubeSearch = (props) => {
     setInputValue(event.target.value);
   };
   const handleAdornmentClick = () => {
-    axiosInstance.get('http://localhost:8080/v1/api/youtube_search?query=' + inputValue)
+    axiosInstance.get('/api/youtube-search?query=' + inputValue)
       .then((response) => {
-        props.getSearchResultData(response.data.result);
+        props.getSearchResultData(response.data);
       })
       .catch((error) => {
         console.error('Error fetching posts:', error);
@@ -21,9 +21,10 @@ export const YoutubeSearch = (props) => {
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      axiosInstance.get('http://localhost:8080/v1/api/youtube_search?query=' + inputValue)
+      axiosInstance.get('/api/youtube-search?query=' + inputValue)
         .then((response) => {
-          props.getSearchResultData(response.data.result);
+          console.log(response.data.result)
+          props.getSearchResultData(JSON.parse(JSON.stringify(response.data)));
         })
         .catch((error) => {
           console.error('Error fetching posts:', error);

@@ -17,6 +17,7 @@ const Page = () => {
   const [youtubeSearchResults, setYoutubeSearchResults] = useState([]);
 
   const getSearchResultData = (rowData) => {
+    console.log(JSON.parse(JSON.stringify(rowData)).result);
     const searchResults = new Array();
     rowData.forEach(element => {
       let youtubeSearchResultObj = new Object();
@@ -27,9 +28,9 @@ const Page = () => {
       youtubeSearchResultObj.thumbnailDetails = element.thumbnails[element.thumbnails.length - 1];
       youtubeSearchResultObj.viewCount = element.viewCount;
 
-      searchResults.push(youtubeSearchResultObj)
+      searchResults.push(youtubeSearchResultObj);
     });
-    setYoutubeSearchResults(searchResults);    
+    setYoutubeSearchResults(searchResults);
   };
 
 
