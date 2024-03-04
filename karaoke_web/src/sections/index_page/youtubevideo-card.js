@@ -11,7 +11,7 @@ export const YoutubeVideoCard = (props) => {
   const { searchData } = props;
 
   const handleKaraokeBtn = videoLink => () => {
-    axiosInstance.get('http://localhost:8080/v1/api/create_karaoke_video?video_url=' + videoLink)
+    axiosInstance.get('/api/create-karaoke-video?video_url=' + videoLink)
     .then((response) => {
       // props.getSearchResultData(response.data.result);
     })

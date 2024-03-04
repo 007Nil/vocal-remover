@@ -219,4 +219,5 @@ out
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-karaoke_env/
+**/karaoke_env/
+**.mp3
