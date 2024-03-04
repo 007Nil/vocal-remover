@@ -219,5 +219,4 @@ out
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-api_env
-karaoke_driver_env
+karaoke_env/
