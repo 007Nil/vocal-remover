@@ -14,7 +14,9 @@ export default function handler(req, res) {
       pythonProcess.stdout.on('data', (data) => {
         const dataFile = data.toString().replaceAll("\n","");
         const youtubeSearchData = readFileSync(dataFile);
-        rmSync(dataFile, { recursive: true, force: true });
+        const tmpDirArray = dataFile.split("/");
+        const tmpDirPath = "/"+tmpDirArray[1]+"/"+tmpDirArray[2];
+        rmSync(tmpDirPath, { recursive: true, force: true });
         res.status(200).json(JSON.parse(youtubeSearchData));
         res.end("end");
        });

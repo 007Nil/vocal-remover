@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 export const YoutubeSearch = (props) => {
   const [inputValue, setInputValue] = useState('');
+  
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
@@ -21,9 +22,11 @@ export const YoutubeSearch = (props) => {
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
+      props.setLoadingStatus(true);
       axiosInstance.get('/api/youtube-search?query=' + inputValue)
         .then((response) => {
           props.getSearchResultData(response.data.result);
+          props.setLoadingStatus(false);
         })
         .catch((error) => {
           console.error('Error fetching posts:', error);

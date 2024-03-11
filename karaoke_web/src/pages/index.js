@@ -8,13 +8,16 @@ import {
 } from '@mui/material';
 import { YoutubeVideoCard } from 'src/sections/index_page/youtubevideo-card';
 import { YoutubeSearch } from 'src/sections/index_page/youtube-search';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import ReactLoading from 'react-loading';
 
 
 
 const Page = () => {
 
   const [youtubeSearchResults, setYoutubeSearchResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+
 
   const getSearchResultData = (rowData) => {
     const searchResults = new Array();
@@ -30,6 +33,10 @@ const Page = () => {
       searchResults.push(youtubeSearchResultObj);
     });
     setYoutubeSearchResults(searchResults);
+  };
+
+  const loadingStatus = (isLoading) => {
+    setLoading(isLoading);
   };
 
 
@@ -68,21 +75,20 @@ const Page = () => {
 
               </div>
             </Stack>
-            <YoutubeSearch getSearchResultData={getSearchResultData} />
+            <YoutubeSearch getSearchResultData={getSearchResultData} setLoadingStatus={loadingStatus} />
+            
             <Grid
               container
               spacing={3}
             >
-              {youtubeSearchResults.map((eachSearchResult) => (
+              {loading ? <div><ReactLoading type={"balls"} color={"#000000"} />Loading</div>  : youtubeSearchResults.map((eachSearchResult) => (
                 <Grid
                   xs={12}
                   md={6}
                   lg={4}
                   key={eachSearchResult.videoId}
                 >
-                  {/* <YoutubeVideCard searchResult={eachSearchResult} /> */}
-                  <YoutubeVideoCard searchData={eachSearchResult}/>
-                  {/* <li key={eachSearchResult.videoId}>{eachSearchResult.videoTitle}</li> */}
+                  <YoutubeVideoCard searchData={eachSearchResult} />
                 </Grid>
 
               ))}
