@@ -10,7 +10,7 @@ export default function handler(req, res) {
       let query = req.query.query;
       let pythonInterpreter = resolve("../karaoke_utils/karaoke_env/bin/python3");
       let youtubeSearchScript = resolve("../karaoke_utils/youtube_search/main.py");
-      const pythonProcess = spawn(pythonInterpreter,[youtubeSearchScript, query]);
+      const pythonProcess = spawn(pythonInterpreter,[youtubeSearchScript, query],{shell: true});
       pythonProcess.stdout.on('data', (data) => {
         const dataFile = data.toString().replaceAll("\n","");
         const youtubeSearchData = readFileSync(dataFile);
