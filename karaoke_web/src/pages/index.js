@@ -39,9 +39,6 @@ const Page = () => {
     setLoading(isLoading);
   };
 
-
-
-
   return (
     <>
       <Head>
@@ -76,22 +73,28 @@ const Page = () => {
               </div>
             </Stack>
             <YoutubeSearch getSearchResultData={getSearchResultData} setLoadingStatus={loadingStatus} />
-            
             <Grid
               container
               spacing={3}
             >
-              {loading ? <div><ReactLoading type={"balls"} color={"#000000"} />Loading</div>  : youtubeSearchResults.map((eachSearchResult) => (
-                <Grid
-                  xs={12}
-                  md={6}
-                  lg={4}
-                  key={eachSearchResult.videoId}
-                >
-                  <YoutubeVideoCard searchData={eachSearchResult} />
-                </Grid>
+              {loading ?
 
-              ))}
+                  <Grid item xs={12} align="center">
+                  <ReactLoading type={"spinningBubbles"} color={"#000000"}/>
+                  </Grid>
+          
+                :
+                youtubeSearchResults.map((eachSearchResult) => (
+                  <Grid
+                    xs={12}
+                    md={6}
+                    lg={4}
+                    key={eachSearchResult.videoId}
+                  >
+                    <YoutubeVideoCard searchData={eachSearchResult} />
+                  </Grid>
+
+                ))}
             </Grid>
             <Box
               sx={{
