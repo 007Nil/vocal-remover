@@ -11,9 +11,11 @@ export const YoutubeSearch = (props) => {
     setInputValue(event.target.value);
   };
   const handleAdornmentClick = () => {
+    props.setLoadingStatus(true);
     axiosInstance.get('/api/youtube-search?query=' + inputValue)
       .then((response) => {
         props.getSearchResultData(response.data.result);
+        props.setLoadingStatus(false);
       })
       .catch((error) => {
         console.error('Error fetching posts:', error);

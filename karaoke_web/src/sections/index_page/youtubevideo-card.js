@@ -6,13 +6,18 @@ import ClockIcon from '@heroicons/react/24/solid/ClockIcon';
 import { Avatar, Box, Card, CardContent, Divider, Stack, SvgIcon, Typography, Button } from '@mui/material';
 import YouTube from 'react-youtube';
 import axiosInstance from 'src/lib/axios';
+import CircularWithValueLabel from 'src/components/CircularProgressWithLabel'
+import { useState } from 'react';
 
 export const YoutubeVideoCard = (props) => {
   const { searchData } = props;
 
+  const [karaokeClick, setKaraokeClick] = useState(false);
+
   const handleKaraokeBtn = videoLink => () => {
     axiosInstance.get('/api/create-karaoke-video?video_url=' + videoLink)
     .then((response) => {
+      setKaraokeClick(true);
       // props.getSearchResultData(response.data.result);
     })
     .catch((error) => {
@@ -103,6 +108,7 @@ export const YoutubeVideoCard = (props) => {
             Karaoke
           </Button>
         </Stack>
+        {karaokeClick ? <CircularWithValueLabel value={10} />: ""}
       </Stack>
     </Card>
   );
