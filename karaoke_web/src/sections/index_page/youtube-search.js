@@ -1,3 +1,4 @@
+'use client';
 import MagnifyingGlassIcon from '@heroicons/react/24/solid/MagnifyingGlassIcon';
 import { Card, InputAdornment, OutlinedInput, SvgIcon } from '@mui/material';
 import axiosInstance from 'src/lib/axios';

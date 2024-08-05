@@ -1,3 +1,4 @@
+'use server';
 const spawn = require("child_process").spawn;
 const resolve = require('path').resolve
 const { readFileSync, rmSync } = require('fs');
@@ -8,7 +9,8 @@ export default function handler(req, res) {
   switch (requestMethod) {
     case "GET":
       let query = req.query.query;
-      let pythonInterpreter = resolve("../karaoke_utils/karaoke_env/bin/python3");
+      let pythonInterpreter = resolve("../karaoke_utils/youtube_search/.env/bin/python3");
+      console.log(pythonInterpreter)
       let youtubeSearchScript = resolve("../karaoke_utils/youtube_search/main.py");
       const pythonProcess = spawn(pythonInterpreter,[youtubeSearchScript, "'"+query+"'"],{shell: true});
       pythonProcess.stdout.on('data', (data) => {

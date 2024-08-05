@@ -1,3 +1,4 @@
+'use server';
 const resolve = require('path').resolve
 const spawn = require("child_process").spawn;
 
@@ -7,7 +8,7 @@ export default function handler(req, res) {
     switch (requestMethod) {
         case "GET":
             let videoURL = req.query.video_url;
-            let pythonInterpreter = resolve("../karaoke_utils/karaoke_env/bin/python3");
+            let pythonInterpreter = resolve("../karaoke_utils/karaoke_driver/.env/bin/python3");
             let karaokeDriverUtility = resolve("../karaoke_utils/karaoke_driver/main.py");
             try {
                 const pythonProcess = spawn(pythonInterpreter, [karaokeDriverUtility, videoURL, "&> /dev/null"],{shell: true});

@@ -1,3 +1,4 @@
+'use client';
 import PropTypes from 'prop-types';
 import ArrowDownTrayIcon from '@heroicons/react/24/solid/ArrowDownTrayIcon';
 import PlayCircleIcon from '@heroicons/react/24/solid/PlayCircleIcon';
@@ -13,17 +14,27 @@ export const YoutubeVideoCard = (props) => {
   const { searchData } = props;
 
   const [karaokeClick, setKaraokeClick] = useState(false);
+  const [mp3Click, setMp3Click] = useState(false);
 
   const handleKaraokeBtn = videoLink => () => {
     axiosInstance.get('/api/create-karaoke-video?video_url=' + videoLink)
     .then((response) => {
       setKaraokeClick(true);
-      // props.getSearchResultData(response.data.result);
     })
     .catch((error) => {
       console.error('Error fetching posts:', error);
     });
   };
+  const handleMP3Btn = videoLink => ()  => {
+    axiosInstance.get('/api/donwload-mp3?video_url=' + videoLink)
+    .then((response) => {
+      console.log(response)
+      setMp3Click(true);
+    })
+    .catch((error) => {
+      console.error('Error fetching posts:', error);
+    });
+  }
   return (
     <Card
       sx={{
@@ -106,6 +117,15 @@ export const YoutubeVideoCard = (props) => {
               <ArrowDownTrayIcon />
             </SvgIcon>
             Karaoke
+          </Button>
+          <Button variant='outlined' onClick={handleMP3Btn(searchData.videoLink)}>
+            <SvgIcon
+              color="action"
+              fontSize="small"
+            >
+              <ArrowDownTrayIcon />
+            </SvgIcon>
+            MP3
           </Button>
         </Stack>
         {karaokeClick ? <CircularWithValueLabel value={10} />: ""}
