@@ -18,36 +18,40 @@ export const YoutubeVideoCard = (props) => {
 
   const handleKaraokeBtn = videoLink => () => {
     axiosInstance.get('/api/create-karaoke-video?video_url=' + videoLink)
-    .then((response) => {
-      setKaraokeClick(true);
-    })
-    .catch((error) => {
-      console.error('Error fetching posts:', error);
-    });
+      .then((response) => {
+        setKaraokeClick(true);
+      })
+      .catch((error) => {
+        console.error('Error fetching posts:', error);
+      });
   };
-  const handleMP3Btn = videoLink => ()  => {
+  const handleMP3Btn = videoLink => () => {
+    setMp3Click(true);
     axiosInstance.get('/api/donwload-mp3?video_url=' + videoLink)
-    .then((response) => {
-      // console.log(response);
-      if (response.status == 200){
-        let donwloadPath = response.data["response_data"]["download_path"]
-        let downloadDir = response.data["response_data"]["download_dir"]
-        let audioFileName = response.data["response_data"]["file_name"]
-        window.location.href = '/api/download?type=mp3&download_path='+donwloadPath+'&file_name='+audioFileName;
-        axiosInstance.get('/api/delete-dir?download_dir=' + downloadDir)
-      }
-      setMp3Click(true);
-    })
-    .catch((error) => {
-      console.error('Error fetching posts:', error);
-    });
+      .then((response) => {
+        
+        // console.log(response);
+        if (response.status == 200) {
+          let donwloadPath = response.data["response_data"]["download_path"]
+          let downloadDir = response.data["response_data"]["download_dir"]
+          let audioFileName = response.data["response_data"]["file_name"]
+          window.location.href = '/api/download?type=mp3&download_path=' + donwloadPath + '&file_name=' + audioFileName;
+          axiosInstance.get('/api/delete-dir?download_dir=' + downloadDir)
+        }
+        setMp3Click(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching posts:', error);
+        setMp3Click(false);
+      });
   }
   return (
     <Card
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        height: '100%'
+        height: '100%',
+        width: '100%'
       }}
     >
       <CardContent>
@@ -83,7 +87,7 @@ export const YoutubeVideoCard = (props) => {
         spacing={2}
         sx={{ p: 2 }}
       >
-        <Stack
+        {/* <Stack
           alignItems="center"
           direction="row"
           spacing={1}
@@ -101,7 +105,7 @@ export const YoutubeVideoCard = (props) => {
           >
             {searchData.viewCount.short}
           </Typography>
-        </Stack>
+        </Stack> */}
         <Stack
           alignItems="center"
           direction="row"
@@ -132,10 +136,11 @@ export const YoutubeVideoCard = (props) => {
             >
               <ArrowDownTrayIcon />
             </SvgIcon>
+            {/* <CircularWithValueLabel/> */}
             MP3
           </Button>
         </Stack>
-        {karaokeClick ? <CircularWithValueLabel value={10} />: ""}
+        {/* {karaokeClick ? <CircularWithValueLabel value={10} /> : ""} */}
       </Stack>
     </Card>
   );
