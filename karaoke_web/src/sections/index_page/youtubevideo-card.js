@@ -15,6 +15,7 @@ export const YoutubeVideoCard = (props) => {
 
   const [karaokeClick, setKaraokeClick] = useState(false);
   const [mp3Click, setMp3Click] = useState(false);
+  const [timeValue, setTimeValue] = useState(2)
 
   const handleKaraokeBtn = videoLink => () => {
     axiosInstance.get('/api/create-karaoke-video?video_url=' + videoLink)
@@ -36,8 +37,9 @@ export const YoutubeVideoCard = (props) => {
           let downloadDir = response.data["response_data"]["download_dir"]
           let audioFileName = response.data["response_data"]["file_name"]
           window.location.href = '/api/download?type=mp3&download_path=' + donwloadPath + '&file_name=' + audioFileName;
-          axiosInstance.get('/api/delete-dir?download_dir=' + downloadDir)
+          // axiosInstance.get('/api/delete-dir?download_dir=' + downloadDir)
         }
+        setTimeValue(100);
         setMp3Click(false);
       })
       .catch((error) => {
@@ -84,7 +86,7 @@ export const YoutubeVideoCard = (props) => {
         alignItems="center"
         direction="row"
         justifyContent="space-between"
-        spacing={2}
+        spacing={21}
         sx={{ p: 2 }}
       >
         {/* <Stack
@@ -139,8 +141,8 @@ export const YoutubeVideoCard = (props) => {
             {/* <CircularWithValueLabel/> */}
             MP3
           </Button>
+          {mp3Click ? <CircularWithValueLabel time={timeValue} /> : ""}
         </Stack>
-        {/* {karaokeClick ? <CircularWithValueLabel value={10} /> : ""} */}
       </Stack>
     </Card>
   );

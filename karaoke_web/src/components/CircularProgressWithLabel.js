@@ -37,18 +37,16 @@ CircularProgressWithLabel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-export default function CircularWithValueLabel() {
-  const [progress, setProgress] = React.useState(10);
+export default function CircularWithValueLabel({time}) {
+  const [progress, setProgress] = React.useState(time);
 
   React.useEffect(() => {
     const timer = setInterval(() => {
-      setProgress((prevProgress) => (prevProgress >= 100 ? 0 : prevProgress + 10));
+      setProgress((prevProgress) => (prevProgress >= 100 ? 0 : prevProgress + 2));
     }, 800);
     return () => {
       clearInterval(timer);
     };
   }, []);
-  console.log("HIT");
-
   return <CircularProgressWithLabel value={progress} />;
 }
