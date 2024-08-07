@@ -28,7 +28,14 @@ export const YoutubeVideoCard = (props) => {
   const handleMP3Btn = videoLink => ()  => {
     axiosInstance.get('/api/donwload-mp3?video_url=' + videoLink)
     .then((response) => {
-      console.log(response)
+      // console.log(response);
+      if (response.status == 200){
+        let donwloadPath = response.data["response_data"]["download_path"]
+        let downloadDir = response.data["response_data"]["download_dir"]
+        let audioFileName = response.data["response_data"]["file_name"]
+        window.location.href = '/api/download?type=mp3&download_path='+donwloadPath+'&file_name='+audioFileName;
+        axiosInstance.get('/api/delete-dir?download_dir=' + downloadDir)
+      }
       setMp3Click(true);
     })
     .catch((error) => {

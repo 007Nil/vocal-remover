@@ -14,13 +14,13 @@ export default function handler(req, res) {
             try {
                 const pythonProcess = spawn(pythonInterpreter, [mp3DownloadUtility, videoURL, tmpDir]);
                 pythonProcess.stdout.on('data', (data) => {
-                    console.log(`stdout: ${data}`);
-                    res.status(200).json({ "message": "successful"});
+                    let audio_file_name = data.toString().split("/").pop();
+                    res.status(200).json({ "message": "successful","response_data": {"download_path": data.toString(), "download_dir": tmpDir, "file_name": audio_file_name}});
+                    res.end("end");
                   });
             } catch {
                 console.log("PROBLEM")
                 res.status(500).json({ "message": "error" });
-            } finally {
                 res.end("end");
             }
 
