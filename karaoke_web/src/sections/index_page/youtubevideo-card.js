@@ -6,7 +6,7 @@ import ClockIcon from '@heroicons/react/24/solid/ClockIcon';
 
 import { Avatar, Box, Card, CardContent, Divider, Stack, SvgIcon, Typography, Button } from '@mui/material';
 import YouTube from 'react-youtube';
-import axiosInstance from 'src/lib/axios';
+import axiosInstance from 'src/utils/axios';
 import CircularWithValueLabel from 'src/components/CircularProgressWithLabel'
 import { useState } from 'react';
 

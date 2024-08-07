@@ -1,7 +1,7 @@
 'use client';
 import MagnifyingGlassIcon from '@heroicons/react/24/solid/MagnifyingGlassIcon';
 import { Card, InputAdornment, OutlinedInput, SvgIcon } from '@mui/material';
-import axiosInstance from 'src/lib/axios';
+import axiosInstance from 'src/utils/axios';
 import { useState } from 'react';
 
 export const YoutubeSearch = (props) => {
