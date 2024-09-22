@@ -12,11 +12,12 @@ import modules.utils as utils
 def main():
     parser = argparse.ArgumentParser(description="Remove vocals from an audio file.")
     parser.add_argument("youtube_link", help="Path to the input audio file")
-    # parser.add_argument("output_file", help="Path to save the output audio file without vocals")
+    parser.add_argument("tmp_dir",help="Tempd dir name")
+
     
     args = parser.parse_args()
 
-    tmp_dir = tempfile.mkdtemp()
+    tmp_dir = args.tmp_dir
     video_title = ytube.get_video_title(args.youtube_link)
     ytube.download_youtube_video(args.youtube_link,tmp_dir)
     ve.extract_audio_from_video(tmp_dir)
@@ -24,8 +25,8 @@ def main():
     utils.copy_accompaniment_file(tmp_dir)
     utils.convert_wav_to_mp3(tmp_dir)
     ve.add_audio_to_video(tmp_dir)
-    utils.rename_final_video(tmp_dir,video_title,"/home/nil")
-    os.system("rm -rf "+tmp_dir)
+    utils.rename_final_video(tmp_dir,video_title,tmp_dir)
+    # os.system("rm -rf "+tmp_dir)
 
 if __name__ == "__main__":
     main()

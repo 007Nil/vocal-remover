@@ -2,10 +2,8 @@
 import PropTypes from 'prop-types';
 import ArrowDownTrayIcon from '@heroicons/react/24/solid/ArrowDownTrayIcon';
 import PlayCircleIcon from '@heroicons/react/24/solid/PlayCircleIcon';
-import ClockIcon from '@heroicons/react/24/solid/ClockIcon';
 
 import { Avatar, Box, Card, CardContent, Divider, Stack, SvgIcon, Typography, Button } from '@mui/material';
-import YouTube from 'react-youtube';
 import axiosInstance from 'src/utils/axios';
 import CircularWithValueLabel from 'src/components/CircularProgressWithLabel'
 import { useState } from 'react';
@@ -18,9 +16,10 @@ export const YoutubeVideoCard = (props) => {
   const [timeValue, setTimeValue] = useState(2)
 
   const handleKaraokeBtn = videoLink => () => {
+    setKaraokeClick(true);
     axiosInstance.get('/api/create-karaoke-video?video_url=' + videoLink)
       .then((response) => {
-        setKaraokeClick(true);
+        
       })
       .catch((error) => {
         console.error('Error fetching posts:', error);
@@ -30,14 +29,12 @@ export const YoutubeVideoCard = (props) => {
     setMp3Click(true);
     axiosInstance.get('/api/donwload-mp3?video_url=' + videoLink)
       .then((response) => {
-        
-        // console.log(response);
         if (response.status == 200) {
           let donwloadPath = response.data["response_data"]["download_path"]
           let downloadDir = response.data["response_data"]["download_dir"]
           let audioFileName = response.data["response_data"]["file_name"]
           window.location.href = '/api/download?type=mp3&download_path=' + donwloadPath + '&file_name=' + audioFileName;
-          // axiosInstance.get('/api/delete-dir?download_dir=' + downloadDir)
+          axiosInstance.get('/api/delete-dir?download_dir=' + downloadDir)
         }
         setTimeValue(100);
         setMp3Click(false);
@@ -89,25 +86,6 @@ export const YoutubeVideoCard = (props) => {
         spacing={21}
         sx={{ p: 2 }}
       >
-        {/* <Stack
-          alignItems="center"
-          direction="row"
-          spacing={1}
-        >
-          <SvgIcon
-            color="action"
-            fontSize="small"
-          >
-            <ClockIcon />
-          </SvgIcon>
-          <Typography
-            color="text.secondary"
-            display="inline"
-            variant="body2"
-          >
-            {searchData.viewCount.short}
-          </Typography>
-        </Stack> */}
         <Stack
           alignItems="center"
           direction="row"
