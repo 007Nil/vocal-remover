@@ -1,16 +1,20 @@
-from pytube import YouTube
+# from pytube import YouTube
+from pytubefix import YouTube
+from pytubefix.cli import on_progress
+import os
 
 
 def get_video_title(link):
-    youtubeObject = YouTube(link)
+    youtubeObject = YouTube(link,on_progress_callback=on_progress)
     return youtubeObject.title
 
 def download_youtube_video(link,tmp_dir):
-    youtubeObject = YouTube(link)
+    youtubeObject = YouTube(link,on_progress_callback=on_progress)
     
-    youtubeObject = youtubeObject.streams.filter(progressive=True, file_extension='mp4').get_highest_resolution()
+    youtubeObject = youtubeObject.streams.get_highest_resolution()
     try:
-        youtubeObject.download(filename=tmp_dir+"/raw.mp4")
+        youtubeObject.download(output_path=tmp_dir)
+        os.system(f"cd {tmp_dir} && mv * raw.mp4")
     except:
         print("An error has occurred")
     print("Download is completed successfully")
