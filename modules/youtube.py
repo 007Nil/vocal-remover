@@ -14,7 +14,6 @@ def download_youtube_video(link,tmp_dir):
     youtubeObject = youtubeObject.streams.get_highest_resolution()
     try:
         youtubeObject.download(output_path=tmp_dir)
-        os.system(f"cd {tmp_dir} && mv * raw.mp4")
     except:
         print("An error has occurred")
     print("Download is completed successfully")
